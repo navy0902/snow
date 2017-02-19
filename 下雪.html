@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+	html,body{
+		color:pink;
+		font-family:"Trebuchet MS",Arial, Helvetica, sans-serif;
+		padding:0px;
+		margin:0px;
+		font-size:12px;	
+		}
+</style>
+</head>
+
+<body style="background:black;">
+	
+	<script src="../1130jQuery_1/jquery-1.9.1.min.js"></script>
+    <script>
+    	$(function(){
+			//默认的设置
+			var defaults={
+				myfont:"&#10052",  //雪花
+				minsize:10,
+				maxsize:100,
+				hz:100,
+				fontColor:"white"
+			}	
+			//先创建一个节点
+			var snow=$("<div></div>").css( {"position":"absolute","top":"-50"} );
+			snow.html(defaults.myfont);
+			//获取到这个屏幕的大小
+			var documentWidth=$(document).width();
+			var documentHeight=$(document).height();
+			
+			setInterval(function(){
+				//开始计算位置
+				var startPL=Math.random()*documentWidth-100;	
+				//透明度
+				var startopacity=Math.random()+0.5;
+				//大小
+				var startsize=Math.random()*(defaults.maxsize-defaults.minsize)+defaults.minsize;
+				//计算消失的位置
+				var endPL=startPL;	
+				var endPT=documentHeight-defaults.maxsize-50;
+					
+				//落下的事件
+				var fallTime=(Math.random()*(defaults.maxsize-defaults.minsize)+defaults.minsize)*100;
+				//移动位置 克隆一份节点 再去操作
+				snow.clone().appendTo("body").css(  {
+					left:startPL,
+					opacity:startopacity,
+					"font-size":startsize,
+					color:defaults.fontColor
+				} )
+				//做动画
+				.animate({
+					top:endPT,
+					left:endPL,
+					opacity:0.1,	
+				},fallTime,"linear",function(){
+					$(this).remove();	
+				}).
+				transform({
+						
+				})
+				;
+			},100);
+		});
+    </script>
+</body>
+</html>
